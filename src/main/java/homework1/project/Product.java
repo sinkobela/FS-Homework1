@@ -9,13 +9,13 @@ import java.util.Objects;
 import static java.util.Optional.ofNullable;
 
 
-public class Project {
+public class Product {
     private final String name;
     private final int price;
     private final List<Category> categories;
     private final String description;
 
-    public Project(String name, int price, List<Category> categories, String description) {
+    public Product(String name, int price, List<Category> categories, String description) {
         this.name = name;
         this.price = price;
         this.categories = ofNullable(categories)
@@ -44,8 +44,8 @@ public class Project {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
-        return price == project.price && Objects.equals(name, project.name) && Objects.equals(categories, project.categories) && Objects.equals(description, project.description);
+        Product product = (Product) o;
+        return price == product.price && Objects.equals(name, product.name) && Objects.equals(categories, product.categories) && Objects.equals(description, product.description);
     }
 
     @Override
@@ -64,38 +64,38 @@ public class Project {
     }
 
 
-    public static class ProjectBuilder {
+    public static class ProductBuilder {
         private String name;
         private int price;
         private final List<Category> categories = new ArrayList<>();
         private String description;
 
-        public static ProjectBuilder project() {
-            return new ProjectBuilder();
+        public static ProductBuilder project() {
+            return new ProductBuilder();
         }
 
-        public ProjectBuilder name(String name) {
+        public ProductBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public ProjectBuilder price(int price) {
+        public ProductBuilder price(int price) {
             this.price = price;
             return this;
         }
 
-        public ProjectBuilder categories(Category categories) {
+        public ProductBuilder categories(Category categories) {
             this.categories.add(categories);
             return this;
         }
 
-        public ProjectBuilder description(String description) {
+        public ProductBuilder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Project build() {
-            return new Project(name, price, categories, description);
+        public Product build() {
+            return new Product(name, price, categories, description);
         }
     }
 

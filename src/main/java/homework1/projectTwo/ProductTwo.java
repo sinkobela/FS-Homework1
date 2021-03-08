@@ -1,34 +1,33 @@
 package homework1.projectTwo;
 
 import homework1.category.Category;
-import homework1.project.Project;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-public class ProjectTwo {
+public class ProductTwo {
     private String name;
     private int price;
     private List<Category> categories = new ArrayList<>();
     private String description;
 
 
-    public ProjectTwo(String name, int price, List<Category> categories, String description) {
+    public ProductTwo(String name, int price, List<Category> categories, String description) {
         this.name = name;
         this.price = price;
-//        this.categories = ofNullable(categories)
-//                .map(ArrayList::new)
-//                .orElseGet(ArrayList::new);
-        this.categories = categories;
+        this.categories = Optional.ofNullable((categories))
+                .map(ArrayList::new)
+                .orElseGet(ArrayList::new);
         this.description = description;
     }
 
-    public ProjectTwo(Category category) {
+    public ProductTwo(Category category) {
         this.categories.add(category);
     }
 
-    public ProjectTwo() {}
+    public ProductTwo() {}
 
     public String getName() {
         return name;
@@ -50,7 +49,7 @@ public class ProjectTwo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProjectTwo that = (ProjectTwo) o;
+        ProductTwo that = (ProductTwo) o;
         return price == that.price && Objects.equals(name, that.name) && Objects.equals(categories, that.categories) && Objects.equals(description, that.description);
     }
 
@@ -69,35 +68,35 @@ public class ProjectTwo {
                 '}';
     }
 
-    public static class ProjectTwoBuilder {
-        private final ProjectTwo projectTwo = new ProjectTwo();
+    public static class ProductTwoBuilder {
+        private final ProductTwo productTwo = new ProductTwo();
 
-        public static ProjectTwoBuilder projectBuilder() {
-            return new ProjectTwoBuilder();
+        public static ProductTwoBuilder projectBuilder() {
+            return new ProductTwoBuilder();
         }
 
-        public ProjectTwoBuilder name(String name) {
-            this.projectTwo.name = name;
+        public ProductTwoBuilder name(String name) {
+            this.productTwo.name = name;
             return this;
         }
 
-        public ProjectTwoBuilder price(int price) {
-            this.projectTwo.price = price;
+        public ProductTwoBuilder price(int price) {
+            this.productTwo.price = price;
             return this;
         }
 
-        public ProjectTwoBuilder categories(Category category) {
-            this.projectTwo.categories.add(category);
+        public ProductTwoBuilder categories(Category category) {
+            this.productTwo.categories.add(category);
             return this;
         }
 
-        public ProjectTwoBuilder description(String description) {
-            this.projectTwo.description = description;
+        public ProductTwoBuilder description(String description) {
+            this.productTwo.description = description;
             return this;
         }
 
-        public ProjectTwo build() {
-            return new ProjectTwo(projectTwo.name, projectTwo.price, projectTwo.categories, projectTwo.description);
+        public ProductTwo build() {
+            return new ProductTwo(productTwo.name, productTwo.price, productTwo.categories, productTwo.description);
         }
 
     }

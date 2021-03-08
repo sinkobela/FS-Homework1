@@ -1,26 +1,31 @@
 package homework1;
 
 import homework1.category.Category;
-import homework1.project.Project;
-import homework1.projectTwo.ProjectTwo;
+import homework1.project.Product;
+import homework1.projectTwo.ProductTwo;
+import homework1.shop.ShoppingProduct;
 
 import java.util.List;
 
-import static homework1.project.Project.ProjectBuilder.project;
+import static homework1.project.Product.ProductBuilder.project;
 
 public class Main {
     public static void main(String[] args) {
 
-        Project project = new Project("Bela", 500, List.of(Category.ELECTRONICS, Category.FOOD), "human");
-        System.out.println(project);
+        Product product = new Product("Bela", 500, List.of(Category.ELECTRONICS, Category.FOOD), "human");
+        System.out.println(product);
 
-        buildingProject();
+        buildingProduct();
 
-        buildingProjectTwo();
+        buildingProductTwo();
+
+        ShoppingProduct shoppingProduct = new ShoppingProduct(new Product("car", 500000, List.of(Category.ELECTRONICS), "Vehicle"));
+        shoppingProduct.setAmount(5);
+        System.out.println(shoppingProduct);
     }
 
-    private static void buildingProjectTwo() {
-        ProjectTwo projectTwo = ProjectTwo.ProjectTwoBuilder.projectBuilder()
+    private static void buildingProductTwo() {
+        ProductTwo productTwo = ProductTwo.ProductTwoBuilder.projectBuilder()
                 .name("Bela")
                 .price(134)
                 .categories(Category.DYI)
@@ -29,11 +34,11 @@ public class Main {
                 .description("Human")
                 .build();
 
-        System.out.println(projectTwo);
+        System.out.println(productTwo);
     }
 
-    private static void buildingProject() {
-        Project project = project()
+    private static void buildingProduct() {
+        Product product = project()
                 .name("Bela")
                 .price(500)
                 .categories(Category.FOOD)
@@ -41,7 +46,7 @@ public class Main {
                 .description("human")
                 .build();
 
-        System.out.println(project);
+        System.out.println(product);
     }
 
 }
