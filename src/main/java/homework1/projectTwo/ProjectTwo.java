@@ -1,28 +1,34 @@
 package homework1.projectTwo;
 
 import homework1.category.Category;
+import homework1.project.Project;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static java.util.Optional.ofNullable;
-
 public class ProjectTwo {
     private String name;
     private int price;
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
     private String description;
 
 
     public ProjectTwo(String name, int price, List<Category> categories, String description) {
         this.name = name;
         this.price = price;
-        this.categories = ofNullable(categories)
-                .map(ArrayList::new)
-                .orElseGet(ArrayList::new);
+//        this.categories = ofNullable(categories)
+//                .map(ArrayList::new)
+//                .orElseGet(ArrayList::new);
+        this.categories = categories;
         this.description = description;
     }
+
+    public ProjectTwo(Category category) {
+        this.categories.add(category);
+    }
+
+    public ProjectTwo() {}
 
     public String getName() {
         return name;
@@ -64,11 +70,35 @@ public class ProjectTwo {
     }
 
     public static class ProjectTwoBuilder {
+        private final ProjectTwo projectTwo = new ProjectTwo();
 
         public static ProjectTwoBuilder projectBuilder() {
             return new ProjectTwoBuilder();
         }
 
+        public ProjectTwoBuilder name(String name) {
+            this.projectTwo.name = name;
+            return this;
+        }
+
+        public ProjectTwoBuilder price(int price) {
+            this.projectTwo.price = price;
+            return this;
+        }
+
+        public ProjectTwoBuilder categories(Category category) {
+            this.projectTwo.categories.add(category);
+            return this;
+        }
+
+        public ProjectTwoBuilder description(String description) {
+            this.projectTwo.description = description;
+            return this;
+        }
+
+        public ProjectTwo build() {
+            return new ProjectTwo(projectTwo.name, projectTwo.price, projectTwo.categories, projectTwo.description);
+        }
 
     }
 }

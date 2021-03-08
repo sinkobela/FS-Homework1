@@ -15,7 +15,6 @@ public class Project {
     private final List<Category> categories;
     private final String description;
 
-
     public Project(String name, int price, List<Category> categories, String description) {
         this.name = name;
         this.price = price;
@@ -68,7 +67,7 @@ public class Project {
     public static class ProjectBuilder {
         private String name;
         private int price;
-        private List<Category> categories;
+        private final List<Category> categories = new ArrayList<>();
         private String description;
 
         public static ProjectBuilder project() {
@@ -85,8 +84,8 @@ public class Project {
             return this;
         }
 
-        public ProjectBuilder categories(List<Category> categories) {
-            this.categories = new ArrayList<>(categories);
+        public ProjectBuilder categories(Category categories) {
+            this.categories.add(categories);
             return this;
         }
 
