@@ -60,7 +60,7 @@ public class ProductTwo {
 
     @Override
     public String toString() {
-        return "ProjectTwo{" +
+        return "ProductTwo{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
                 ", categories=" + categories +

@@ -7,8 +7,13 @@ import java.util.Objects;
 public class ShoppingProduct {
 
     private final Product product;
-    private int amount = 1;
+    private int amount;
 
+
+    public ShoppingProduct(Product product, int amount) {
+        this.product = product;
+        this.amount = amount;
+    }
 
     public ShoppingProduct(Product product) {
         this.product = product;

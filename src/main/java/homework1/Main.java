@@ -3,6 +3,7 @@ package homework1;
 import homework1.category.Category;
 import homework1.project.Product;
 import homework1.projectTwo.ProductTwo;
+import homework1.shop.Shop;
 import homework1.shop.ShoppingProduct;
 
 import java.util.List;
@@ -12,16 +13,29 @@ import static homework1.project.Product.ProductBuilder.project;
 public class Main {
     public static void main(String[] args) {
 
-        Product product = new Product("Bela", 500, List.of(Category.ELECTRONICS, Category.FOOD), "human");
-        System.out.println(product);
+//        Product product = new Product("Bela", 500, List.of(Category.ELECTRONICS, Category.FOOD), "human");
+//        System.out.println(product);
+//
+//        buildingProduct();
+//
+//        buildingProductTwo();
 
-        buildingProduct();
+        ShoppingProduct car = new ShoppingProduct(new Product("Car", 500000, List.of(Category.DYI), "Vehicle"), 1);
+        car.setAmount(3);
+        ShoppingProduct mobiles = new ShoppingProduct(new Product("Mobile Phone", 500, List.of(Category.ELECTRONICS), "gadget"), 15);
+        ShoppingProduct jeans = new ShoppingProduct(new Product("Jeans", 200, List.of(Category.CLOTHES), "clothing"), 8);
+        ShoppingProduct burgers = new ShoppingProduct(new Product("Burgers", 50, List.of(Category.FOOD), "cheeseburger"), 100);
 
-        buildingProductTwo();
+        Shop shop = new Shop(List.of(car, mobiles, jeans, burgers));
 
-        ShoppingProduct shoppingProduct = new ShoppingProduct(new Product("car", 500000, List.of(Category.ELECTRONICS), "Vehicle"));
-        shoppingProduct.setAmount(5);
-        System.out.println(shoppingProduct);
+        shop.addProduct(new ShoppingProduct(new Product("TV", 2000, List.of(Category.ELECTRONICS), "entertainment system"), 5));
+        shop.addProduct(new ShoppingProduct(new Product("TV", 2000, List.of(Category.ELECTRONICS), "entertainment system"), 5));
+
+        shop.buyProduct(car, 3);
+        shop.buyProduct(mobiles, 1);
+        shop.buyProduct(burgers, 222);
+
+        shop.printAllProducts();
     }
 
     private static void buildingProductTwo() {
