@@ -20,20 +20,23 @@ public class Main {
 //
 //        buildingProductTwo();
 
-        ShoppingProduct car = new ShoppingProduct(new Product("Car", 500000, List.of(Category.DYI), "Vehicle"), 1);
-        car.setAmount(3);
+        ShoppingProduct cars = new ShoppingProduct(new Product("Car", 500000, List.of(Category.DYI), "Vehicle"), 1);
+        cars.setAmount(3);
         ShoppingProduct mobiles = new ShoppingProduct(new Product("Mobile Phone", 500, List.of(Category.ELECTRONICS), "gadget"), 15);
         ShoppingProduct jeans = new ShoppingProduct(new Product("Jeans", 200, List.of(Category.CLOTHES), "clothing"), 8);
         ShoppingProduct burgers = new ShoppingProduct(new Product("Burgers", 50, List.of(Category.FOOD), "cheeseburger"), 100);
 
-        Shop shop = new Shop(List.of(car, mobiles, jeans, burgers));
+        Shop shop = new Shop(List.of(cars, mobiles, jeans, burgers));
 
-        shop.addProduct(new ShoppingProduct(new Product("TV", 2000, List.of(Category.ELECTRONICS), "entertainment system"), 5));
-        shop.addProduct(new ShoppingProduct(new Product("TV", 2000, List.of(Category.ELECTRONICS), "entertainment system"), 5));
+        shop.addProduct2(new ShoppingProduct(new Product("TV", 2000, List.of(Category.ELECTRONICS), "entertainment system"), 5));
+        shop.addProduct2(new ShoppingProduct(new Product("TV", 2000, List.of(Category.ELECTRONICS), "entertainment system"), 5));
 
-        shop.buyProduct(car, 3);
+        shop.buyProduct(cars, 3);
         shop.buyProduct(mobiles, 1);
         shop.buyProduct(burgers, 222);
+
+        ShoppingProduct anotherTv = new ShoppingProduct(new Product("TV", 23444, List.of(Category.ELECTRONICS), "blabla"), 8);
+//        shop.addProduct2(anotherTv);
 
         shop.printAllProducts();
     }
@@ -64,22 +67,3 @@ public class Main {
     }
 
 }
-
-//1) Create an immutable object:
-//
-//        Project(name: String, price:int, categories: List<Category>, description:String)
-//
-//        Category is an enum with values:
-//        ELECTRONICS,
-//        CLOTHES,
-//        FOOD,
-//        DYI
-//        2) Make sure it's properly encapsulated and truly immutable (reference escapes)
-//
-//        3) construct a builder that duplicates the state. The category can be only added one by one.
-//
-//        4) re-create the Project, keep it immutable, but create a builder that DOESN'T duplicate the state
-//
-//        5) make sure your builder doesn't escape references
-//
-//        6) The category(String category) method in the builder must be able to be called multiple times

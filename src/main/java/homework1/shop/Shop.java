@@ -1,8 +1,11 @@
 package homework1.shop;
 
+import homework1.exceptions.DuplicateNameException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 
@@ -13,22 +16,51 @@ public class Shop {
     public Shop(List<ShoppingProduct> shoppingProducts) {
         this.shoppingProducts = ofNullable(shoppingProducts)
                 .map(ArrayList::new)
-                .orElseGet(ArrayList::new);;
+                .orElseGet(ArrayList::new);
     }
 
     public List<ShoppingProduct> getShoppingProducts() {
         return new ArrayList<>(shoppingProducts);
     }
 
-    public ShoppingProduct addProduct(ShoppingProduct shoppingProduct) {
-        for (ShoppingProduct product : shoppingProducts) {
-            if (product.getProduct().equals(shoppingProduct.getProduct())) {
-                product.setAmount(product.getAmount() + shoppingProduct.getAmount());
-                return product;
+
+    public void addProduct2(ShoppingProduct shoppingProduct) {
+        if (verifyDuplicateName(shoppingProduct)) {
+            if (verifyDuplicateProduct(shoppingProduct)) {
+                for (ShoppingProduct product : shoppingProducts) {
+                    if (product.getProduct().equals(shoppingProduct.getProduct())) {
+                        product.setAmount(product.getAmount() + shoppingProduct.getAmount());
+                    }
+                }
+            } else {
+                throw new DuplicateNameException("There is already a product in the shop with this name!");
+            }
+        } else {
+            shoppingProducts.add(shoppingProduct);
+        }
+    }
+
+    public boolean verifyDuplicateName(ShoppingProduct shoppingProduct) {
+        List<ShoppingProduct> products = shoppingProducts.
+                stream()
+                .filter(shoppingProduct1 -> shoppingProduct1.getProduct().getName().equalsIgnoreCase(shoppingProduct.getProduct().getName()))
+                .collect(Collectors.toList());
+
+        return !products.isEmpty();
+    }
+
+    public boolean verifyDuplicateProduct(ShoppingProduct shoppingProduct) {
+        boolean result = false;
+        if (verifyDuplicateName(shoppingProduct)) {
+            List<ShoppingProduct> products = shoppingProducts.
+                    stream()
+                    .filter(shoppingProduct1 -> shoppingProduct1.getProduct().equals(shoppingProduct.getProduct()))
+                    .collect(Collectors.toList());
+            if (!products.isEmpty()) {
+                result = true;
             }
         }
-        shoppingProducts.add(shoppingProduct);
-        return shoppingProduct;
+        return result;
     }
 
     public void buyProduct(ShoppingProduct shoppingProduct, int amount) {
